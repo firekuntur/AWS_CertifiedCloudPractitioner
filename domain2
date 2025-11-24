@@ -1,0 +1,362 @@
+# AWS Cloud Practitioner — Domain 2 (Security & Compliance)
+A full **README.md** glossary covering EVERY important keyword, concept, and AWS security service needed for Domain 2 of the AWS Cloud Practitioner (CLF-C02) exam.
+
+Format:  
+**Term → Explanation**  
+Designed for fast memorization, exam readiness, and copy/paste into your study notes.
+
+---
+
+# 🛡 Domain 2 — Security & Compliance Glossary
+
+---
+
+## 🔐 1. AWS Root User & IAM Basics
+
+### **Root User**
+The original account owner with full unrestricted access.  
+Should only be used for:
+- Account closure
+- Changing payment info
+- Managing Support Plans
+- Restoring MFA
+- Very specific account-level tasks
+
+### **Root User Best Practices**
+- Enable MFA  
+- Never use for daily operations  
+- Lock away access keys  
+
+---
+
+### **IAM (Identity and Access Management)**
+Service for managing **authentication** (who can log in) and **authorization** (what they can do).  
+Free service.
+
+---
+
+## 🔑 2. IAM Identities (Users, Groups, Roles, Policies)
+
+### **IAM User**
+Represents a human or application needing long-term access.  
+Can have passwords or access keys.
+
+### **IAM Group**
+A collection of users that share permissions.  
+Best practice:  
+Assign policies to **groups**, not individual users.
+
+### **IAM Role**
+Temporary access credentials that can be **assumed** by:
+- AWS services (EC2 → S3)
+- Applications
+- Other AWS accounts
+- Federated users
+
+Roles **do not** have passwords or long-term keys.
+
+### **IAM Policy**
+JSON document defining allowed/denied actions.  
+Attached to users, groups, or roles.
+
+#### **Explicit Deny**
+Always overrides any Allow.  
+Important exam rule.
+
+---
+
+### **IAM Access Keys**
+Used by CLI/SDK.  
+Should be:
+- Rotated regularly  
+- Never stored in code  
+- Only used when roles cannot be used  
+
+---
+
+### **IAM Password Policy**
+Allows enforcing:
+- Length  
+- Rotation  
+- Reuse prevention  
+- Complexity  
+
+---
+
+### **MFA (Multi-Factor Authentication)**
+Adds a second verification factor.  
+Mandatory for root user.
+
+---
+
+## 🛡 3. Network Protection (Security Groups vs NACLs)
+
+### **Security Group (SG)**
+- Instance-level firewall  
+- **Stateful**  
+- Allows ONLY **allow** rules  
+- Automatically allows return traffic  
+- Applied to ENIs (Elastic Network Interfaces)
+
+Best choice for:
+- Restricting EC2 inbound/outbound  
+- Controlling ALB traffic
+
+---
+
+### **Network ACL (NACL)**
+- Subnet-level firewall  
+- **Stateless**  
+- Supports **allow and deny** rules  
+- Evaluated before Security Groups  
+- Good for blocking IPs or ports at subnet level
+
+Exam tip:  
+If question says “stateless,” answer = **NACL**
+
+---
+
+## 📜 4. Logging, Auditing, and Monitoring
+
+### **AWS CloudTrail**
+Logs all API calls and console actions.  
+Records:
+- Who made the call  
+- When  
+- From where  
+- What actions were taken  
+
+Used for:
+- Auditing  
+- Compliance  
+- Security investigations  
+
+---
+
+### **AWS Config**
+Tracks configuration changes of AWS resources.  
+Maintains **configuration history** and allows **compliance checks**.
+
+Used for:
+- Detecting non-compliant changes  
+- Tracking resource drift  
+- Governance  
+
+---
+
+### **CloudWatch**
+Monitors performance metrics (CPU, memory, logs).  
+**NOT** an auditing tool.  
+(Exam often tries to confuse this with CloudTrail.)
+
+---
+
+## 🧩 5. Threat Detection & Vulnerability Scanning
+
+### **GuardDuty**
+Threat detection service powered by ML.  
+Finds:
+- Malicious IP connections  
+- Anomalous logins  
+- Reconnaissance activity  
+- Compromised IAM credentials  
+- EC2 compromise indicators  
+
+Clue:  
+If question says **“detect threats automatically"** → GuardDuty.
+
+---
+
+### **Amazon Inspector**
+Automated vulnerability scanner for:
+- EC2 instances
+- Amazon ECR container images
+- Lambda functions
+
+Detects:
+- CVEs  
+- Security best practice violations  
+
+---
+
+### **Amazon Macie**
+ML-based discovery of **PII** in Amazon S3.  
+Looks for:
+- Names  
+- Addresses  
+- Credit card numbers  
+- Personal identifiers  
+
+Exam clue:  
+“PII” = **Macie**
+
+---
+
+### **IAM Access Analyzer**
+Identifies resources such as:
+- S3 buckets  
+- KMS keys  
+- IAM roles  
+
+…that are shared:
+- Publicly  
+- With other AWS accounts  
+- With external identities  
+
+---
+
+## 🔐 6. Encryption Essentials
+
+### **Encryption At Rest**
+Data is encrypted when stored on disk.  
+Used in:
+- S3  
+- EBS  
+- RDS  
+- DynamoDB  
+- Lambda environment vars  
+
+Managed by AWS or customer depending on key type.
+
+---
+
+### **Encryption In Transit**
+Data encrypted while traveling over network (TLS/SSL).
+
+---
+
+### **AWS KMS (Key Management Service)**
+Manages encryption keys.  
+Supports:
+- AWS-managed keys  
+- Customer-managed keys (CMK)  
+- Grants fine-grained control via IAM
+
+Used heavily throughout AWS.
+
+---
+
+### **S3 Encryption Types**
+- **SSE-S3** (AWS manages keys)  
+- **SSE-KMS** (Customer-managed keys in KMS)  
+- **SSE-C** (Customer-supplied keys)  
+
+---
+
+## 🧱 7. Application & Network Protection
+
+### **AWS WAF (Web Application Firewall)**
+Protects:
+- CloudFront  
+- ALB  
+- API Gateway  
+- AppSync  
+
+Blocks:
+- SQL injection  
+- XSS  
+- Common web attacks  
+
+---
+
+### **AWS Shield**
+DDoS protection.  
+Two tiers:
+- **Shield Standard (free)**  
+- **Shield Advanced (paid)** for enterprise protection
+
+Protects:
+- CloudFront  
+- Route 53  
+- ALBs/NLBs  
+- Global Accelerator  
+
+---
+
+### **AWS Secrets Manager**
+Manages secrets like:
+- API keys  
+- DB credentials  
+- Tokens  
+
+Supports automatic rotation.
+
+---
+
+### **AWS Systems Manager Parameter Store**
+Stores configuration values and secrets.
+
+---
+
+## 🏢 8. AWS Organizations & Compliance
+
+### **AWS Organizations**
+Manages multiple AWS accounts from a central location.  
+Features:
+- Consolidated billing  
+- Central policy control  
+- Automated account creation  
+
+---
+
+### **Service Control Policy (SCP)**
+Defines **maximum permissions** allowed in organization accounts.  
+Applies to:
+- All IAM users  
+- All IAM roles  
+- Even the root user in child accounts  
+
+Example:  
+“Prevent anyone from deleting S3 buckets” → Implement via SCP.
+
+---
+
+### **AWS Artifact**
+Portal for retrieving compliance reports:
+- SOC  
+- PCI  
+- ISO  
+- HIPAA  
+- FedRAMP
+
+Useful for audits.
+
+---
+
+### **Shared Responsibility Model**
+Defines who is responsible for what.
+
+#### AWS Responsible For (Security **of** the cloud):
+- Hardware  
+- Infrastructure  
+- Hypervisor  
+- Data centers  
+- Managed service infrastructure  
+
+#### Customer Responsible For (Security **in** the cloud):
+- IAM policies  
+- SGs/NACLs  
+- Encryption choices  
+- Patching EC2  
+- Data classification  
+- Application code  
+
+---
+
+# 🧠 9. Misc Key Terms That Appear on the Exam
+
+### **Least Privilege**
+Give users the minimum permissions they need.
+
+### **Defense in Depth**
+Use multiple layers of security (IAM + SG + NACL + WAF + KMS).
+
+### **Compliance**
+AWS shares reports via AWS Artifact.
+
+### **Penetration Testing**
+Allowed for certain AWS services (must follow AWS rules of engagement).
+
+---
+
+# 
