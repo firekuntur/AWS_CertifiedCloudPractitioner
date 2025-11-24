@@ -248,9 +248,15 @@ Uptime of a service (e.g., 99.99% uptime).
 ### **Elasticity vs Scalability**
 - **Scalability** = ability to increase capacity.  
 - **Elasticity** = ability to scale automatically based on demand.
+  
+### **Elasticity vs Scalability Scenario**
+- **Scalability** = Hiring more employees when business grows.
+- **Elasticity** = Hiring temporary workers who come in ONLY when customers show up.
 
+  
 ### **Regions Are Isolated, AZs Are Connected**
 Regions do not share control planes; AZs have low-latency links.
 
 ### **IAM (Identity and Access Management)**
 Controls permissions and authentication (covered deeper in D
+
